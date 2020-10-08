@@ -11,8 +11,6 @@ import (
 	"strconv"
 	"text/tabwriter"
 
-	builtin2 "github.com/filecoin-project/specs-actors/v2/actors/builtin"
-
 	"github.com/filecoin-project/lotus/chain/actors/builtin"
 
 	"github.com/filecoin-project/lotus/chain/actors"
@@ -1071,7 +1069,7 @@ var msigLockProposeCmd = &cli.Command{
 			return actErr
 		}
 
-		msgCid, err := api.MsigPropose(ctx, msig, msig, big.Zero(), from, uint64(builtin2.MethodsMultisig.LockBalance), params)
+		msgCid, err := api.MsigPropose(ctx, msig, msig, big.Zero(), from, uint64(multisig.Methods.LockBalance), params)
 		if err != nil {
 			return err
 		}
@@ -1168,7 +1166,7 @@ var msigLockApproveCmd = &cli.Command{
 			return actErr
 		}
 
-		msgCid, err := api.MsigApproveTxnHash(ctx, msig, txid, prop, msig, big.Zero(), from, uint64(builtin2.MethodsMultisig.LockBalance), params)
+		msgCid, err := api.MsigApproveTxnHash(ctx, msig, txid, prop, msig, big.Zero(), from, uint64(multisig.Methods.LockBalance), params)
 		if err != nil {
 			return err
 		}
@@ -1260,7 +1258,7 @@ var msigLockCancelCmd = &cli.Command{
 			return actErr
 		}
 
-		msgCid, err := api.MsigCancel(ctx, msig, txid, msig, big.Zero(), from, uint64(builtin2.MethodsMultisig.LockBalance), params)
+		msgCid, err := api.MsigCancel(ctx, msig, txid, msig, big.Zero(), from, uint64(multisig.Methods.LockBalance), params)
 		if err != nil {
 			return err
 		}
