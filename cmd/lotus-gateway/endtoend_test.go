@@ -8,8 +8,8 @@ import (
 	"testing"
 	"time"
 
-	init0 "github.com/filecoin-project/specs-actors/actors/builtin/init"
-	"github.com/filecoin-project/specs-actors/actors/builtin/multisig"
+	init2 "github.com/filecoin-project/specs-actors/v2/actors/builtin/init"
+	multisig2 "github.com/filecoin-project/specs-actors/v2/actors/builtin/multisig"
 
 	"github.com/stretchr/testify/require"
 	"golang.org/x/xerrors"
@@ -95,7 +95,7 @@ func TestEndToEnd(t *testing.T) {
 	require.NoError(t, err)
 	require.EqualValues(t, 0, res.Receipt.ExitCode)
 
-	var execReturn init0.ExecReturn
+	var execReturn init2.ExecReturn
 	err = execReturn.UnmarshalCBOR(bytes.NewReader(res.Receipt.Return))
 	require.NoError(t, err)
 
@@ -115,7 +115,7 @@ func TestEndToEnd(t *testing.T) {
 	require.NoError(t, err)
 	require.EqualValues(t, 0, res.Receipt.ExitCode)
 
-	var proposeReturn multisig.ProposeReturn
+	var proposeReturn multisig2.ProposeReturn
 	err = proposeReturn.UnmarshalCBOR(bytes.NewReader(res.Receipt.Return))
 	require.NoError(t, err)
 
@@ -129,7 +129,7 @@ func TestEndToEnd(t *testing.T) {
 	require.NoError(t, err)
 	require.EqualValues(t, 0, res.Receipt.ExitCode)
 
-	var approveReturn multisig.ApproveReturn
+	var approveReturn multisig2.ApproveReturn
 	err = approveReturn.UnmarshalCBOR(bytes.NewReader(res.Receipt.Return))
 	require.NoError(t, err)
 	require.True(t, approveReturn.Applied)
