@@ -7,7 +7,6 @@ import (
 	lcli "github.com/filecoin-project/lotus/cli"
 	"github.com/filecoin-project/specs-actors/v2/actors/builtin/miner"
 	"github.com/urfave/cli/v2"
-	"golang.org/x/xerrors"
 )
 
 var borkedMinersCmd = &cli.Command{
@@ -56,8 +55,9 @@ var borkedMinersCmd = &cli.Command{
 			}
 			minerSt, ok := st.State.(miner.State)
 			if !ok {
-				fmt.Printf("bad minerSt: %v\n", minerSt)
-				return xerrors.Errorf("internal error: reading miner address returns non-miner state")
+				fmt.Printf("bad minerSt type %T: %v\n", minerSt, minerSt)
+				continue
+				//				return xerrors.Errorf("internal error: reading miner address returns non-miner state")
 			}
 			pps := minerSt.ProvingPeriodStart
 			dlIdx := minerSt.CurrentDeadline
