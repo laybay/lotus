@@ -35,6 +35,12 @@ var borkedMinersCmd = &cli.Command{
 		if err != nil {
 			return err
 		}
+		if ts == nil {
+			ts, err = api.ChainHead(ctx)
+			if err != nil {
+				return err
+			}
+		}
 
 		queryEpoch := ts.Height()
 
