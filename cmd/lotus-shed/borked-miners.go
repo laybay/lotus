@@ -75,7 +75,7 @@ var borkedMinersCmd = &cli.Command{
 			// Equality is an error because last epoch of the deadline queryEpoch = x + 59.  Cron
 			// should get run and bump latestDeadline = x + 60 so nextDeadline = x + 120
 			if queryEpoch >= nextDeadline {
-				fmt.Printf("%x -- next deadline start in non-future epoch %d <= query epoch %d\n", mAddr, nextDeadline, queryEpoch)
+				fmt.Printf("%s -- next deadline start in non-future epoch %d <= query epoch %d\n", mAddr, nextDeadline, queryEpoch)
 			}
 
 		}
