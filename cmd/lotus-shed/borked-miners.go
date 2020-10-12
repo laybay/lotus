@@ -60,9 +60,9 @@ var borkedMinersCmd = &cli.Command{
 			}
 
 			ppsIface := minerState["ProvingPeriodStart"]
-			pps := ppsIface.(int64)
+			pps := int64(ppsIface.(float64))
 			dlIdxIface := minerState["CurrentDeadline"]
-			dlIdx := dlIdxIface.(uint64)
+			dlIdx := uint64(dlIdxIface.(float64))
 			latestDeadline := abi.ChainEpoch(pps) + abi.ChainEpoch(int64(dlIdx))*miner.WPoStChallengeWindow
 			nextDeadline := latestDeadline + miner.WPoStChallengeWindow
 
