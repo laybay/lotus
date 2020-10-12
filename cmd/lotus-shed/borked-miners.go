@@ -7,6 +7,7 @@ import (
 	lcli "github.com/filecoin-project/lotus/cli"
 	"github.com/filecoin-project/specs-actors/v2/actors/builtin/miner"
 	"github.com/urfave/cli/v2"
+	"golang.org/x/xerrors"
 )
 
 var borkedMinersCmd = &cli.Command{
@@ -53,16 +54,16 @@ var borkedMinersCmd = &cli.Command{
 			if err != nil {
 				return err
 			}
-			minerSt, ok := st.State.(miner.State)
+			minerState, ok := st.State.(map[string]interface{})
 			if !ok {
-				fmt.Printf("bad st type %T: %v\n", st.State, st.State)
-				//				fmt.Printf("bad minerSt type %T: %v\n", minerSt, minerSt)
-				continue
-				//				return xerrors.Errorf("internal error: reading miner address returns non-miner state")
+				xerrors.Errorf("internal error: failed to cast miner state to expected map type")
 			}
-			pps := minerSt.ProvingPeriodStart
-			dlIdx := minerSt.CurrentDeadline
-			latestDeadline := pps + abi.ChainEpoch(int64(dlIdx))*miner.WPoStChallengeWindow
+
+			ppsIface := minerState["ProvingPeriodStart"]
+			pps := ppsIface.(int64)
+			dlIdxIface := minerState["CurrentDeadline"]
+			dlIdx := dlIdxIface.(uint64)
+			latestDeadline := abi.ChainEpoch(pps) + abi.ChainEpoch(int64(dlIdx))*miner.WPoStChallengeWindow
 			nextDeadline := latestDeadline + miner.WPoStChallengeWindow
 
 			// Need +1 because last epoch of the deadline queryEpoch = x + 59 cron gets run and
