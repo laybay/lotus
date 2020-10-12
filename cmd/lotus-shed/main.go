@@ -18,6 +18,7 @@ func main() {
 		base32Cmd,
 		base16Cmd,
 		bitFieldCmd,
+		borkedMinersCmd,
 		keyinfoCmd,
 		jwtCmd,
 		noncefix,
