@@ -55,7 +55,8 @@ var borkedMinersCmd = &cli.Command{
 			}
 			minerSt, ok := st.State.(miner.State)
 			if !ok {
-				fmt.Printf("bad minerSt type %T: %v\n", minerSt, minerSt)
+				fmt.Printf("bad st type %T: %v\n", st.State, st.State)
+				//				fmt.Printf("bad minerSt type %T: %v\n", minerSt, minerSt)
 				continue
 				//				return xerrors.Errorf("internal error: reading miner address returns non-miner state")
 			}
