@@ -56,6 +56,7 @@ var borkedMinersCmd = &cli.Command{
 			}
 			minerSt, ok := st.State.(miner.State)
 			if !ok {
+				fmt.Printf("bad minerSt: %v\n", minerSt)
 				return xerrors.Errorf("internal error: reading miner address returns non-miner state")
 			}
 			pps := minerSt.ProvingPeriodStart
