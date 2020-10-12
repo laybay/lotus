@@ -56,7 +56,7 @@ var borkedMinersCmd = &cli.Command{
 			}
 			minerState, ok := st.State.(map[string]interface{})
 			if !ok {
-				xerrors.Errorf("internal error: failed to cast miner state to expected map type")
+				return xerrors.Errorf("internal error: failed to cast miner state to expected map type")
 			}
 
 			ppsIface := minerState["ProvingPeriodStart"]
